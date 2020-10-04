@@ -1,12 +1,6 @@
 const router = require('express').Router();
 
-// Import contact controller
 var todoController = require('./todoController');
-// Contact routes
-router.use((req, res, next) => {
-    console.log(req)
-    next()
-})
 
 router.route('/todo')
     .get(todoController.index)

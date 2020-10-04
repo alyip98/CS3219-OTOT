@@ -4,7 +4,7 @@ const MongoClient = require('mongodb').MongoClient
 const mongoose = require('mongoose')
 const todoRouter = require('./api/todoRoutes')
 
-const url = "mongodb://localhost:27017/mydb";
+const url = process.env.db_url || "mongodb://localhost:27017/mydb";
 const app = express()
 const port = 8000
 
