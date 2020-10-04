@@ -4,7 +4,7 @@
   "description": "Simple todo list web app",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --delay"
+    "test": "mocha --delay --exit"
   },
   "author": "",
   "license": "ISC",

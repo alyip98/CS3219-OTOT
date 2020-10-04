@@ -78,7 +78,7 @@ exports.update = function (req, res) {
 };
 // Handle delete todo
 exports.delete = function (req, res) {
-    Todo.remove({
+    Todo.deleteOne({
         _id: req.params.todo_id
     }, function (err, result) {
         if (err)
@@ -94,7 +94,7 @@ exports.delete = function (req, res) {
 
 // Handle delete todo
 exports.clear = function (req, res) {
-    Todo.remove({
+    Todo.deleteMany({
 
     }, function (err, result) {
         if (err)
