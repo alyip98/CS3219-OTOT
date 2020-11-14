@@ -34,7 +34,7 @@ export default {
   },
   methods: {
     loadData() {
-      axios.get("http://localhost:8000/api/todo").then(
+      axios.get("api/todo").then(
         resp => {
           console.log(resp);
           this.todos = resp.data.data;
@@ -56,7 +56,7 @@ export default {
     deleteTodo(todo) {
       var todoTitle = todo.title;
       console.log("deleting", todo._id)
-      return axios.delete(`http://localhost:8000/api/todo/${todo._id}`).catch(console.error)
+      return axios.delete(`api/todo/${todo._id}`).catch(console.error)
         .then(resp => {
           console.log(resp);
           this.$bvToast.toast(`Todo ${todoTitle} deleted`, {

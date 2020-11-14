@@ -38,7 +38,7 @@ export default {
         return;
       }
       var todoTitle = this.title;
-      axios.post("http://localhost:8000/api/todo", {
+      axios.post("api/todo", {
         title: this.title,
         desc: this.desc
       }).then(resp => {

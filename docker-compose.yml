@@ -2,12 +2,14 @@ version: "3.8"
 services:
   web:
     build: web
+    image: alyip98/cs3219-tadone-web
     ports:
       - "8080:80"
     depends_on:
       - app
   app:
     build: src
+    image: alyip98/cs3219-tadone-app
     depends_on:
       - db
     environment:
