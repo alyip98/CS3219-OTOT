@@ -81,8 +81,10 @@ exports.delete = function (req, res) {
     Todo.deleteOne({
         _id: req.params.todo_id
     }, function (err, result) {
-        if (err)
+        if (err) {
             res.send(err);
+            return;
+        }
         if (result.deletedCount === 0)
             res.statusCode = 404
         res.json({
