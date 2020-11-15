@@ -38,41 +38,57 @@ services:
     ports:
       - '9092'
     depends_on:
+      - zookeeper1
+      - zookeeper2
       - zookeeper3
     environment:
-      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper1:2181
-      - K
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper1:2181,zookeeper2:2181,zookeeper3:2181
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
       - ALLOW_PLAINTEXT_LISTENER=yes
   kafka2:
     image: 'bitnami/kafka:latest'
     ports:
       - '9092'
     depends_on:
+      - zookeeper1
+      - zookeeper2
       - zookeeper3
     environment:
-      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper1:2181
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper1:2181,zookeeper2:2181,zookeeper3:2181
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
       - ALLOW_PLAINTEXT_LISTENER=yes
   kafka3:
     image: 'bitnami/kafka:latest'
     ports:
       - '9092'
     depends_on:
+      - zookeeper1
+      - zookeeper2
       - zookeeper3
     environment:
-      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper1:2181
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper1:2181,zookeeper2:2181,zookeeper3:2181
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
       - ALLOW_PLAINTEXT_LISTENER=yes
-#
-#  producer:
-#    depends_on:
-#      - kafka1
-#    build: producer
-#
-#  client1:
-#    depends_on:
-#      - producer
-#    build: client
-#
-#  client2:
-#    depends_on:
-#      - producer
-#    build: client
+
+  producer:
+    depends_on:
+      - kafka1
+      - kafka2
+      - kafka3
+    build: producer
+    environment:
+      KAFKA_HOST: kafka1:9092
+
+  client1:
+    depends_on:
+      - producer
+    build: client
+    environment:
+      KAFKA_HOST: kafka2:9092
+
+  client2:
+    depends_on:
+      - producer
+    build: client
+    environment:
+      KAFKA_HOST: kafka3:9092

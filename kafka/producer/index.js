@@ -1,6 +1,6 @@
 const kafka = require('kafka-node');
 const HighLevelProducer = kafka.Producer;
-const client = new kafka.KafkaClient({kafkaHost: 'kafka1:9092'});
+const client = new kafka.KafkaClient({kafkaHost: process.env.KAFKA_HOST || 'kafka1:9092'});
 const producer = new HighLevelProducer(client);
 
 producer.on('ready', () => {
@@ -10,11 +10,12 @@ producer.on('ready', () => {
     })
 
     setInterval(() => {
+        const time = Date.now();
         const payloads = [
-            { topic: 'topic1', messages: Date.now() }];
+            { topic: 'topic1', messages: time }];
         producer.send(payloads, (err, data) => {
             if (err) console.error(err);
-            else console.log(data);
+            else console.log(`Sent message ${time}`);
         });
     }, 1000);
 })
